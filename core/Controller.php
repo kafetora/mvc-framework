@@ -44,6 +44,17 @@ abstract class Controller{
       'session' => $this->session,
     );
 
+
+    $view = new View( $this->application->getViewDir(), $defaults );
+
+    if( is_null( $template ) ){
+      $template = $this->action_name;
+    }
+    
+    $path = $this->controller_name . '/' . $template;
+
+    return $view->render( $path, $variables, $layout );
+
   }
 
 }
