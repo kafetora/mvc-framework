@@ -12,7 +12,6 @@ abstract class DbRepository{
     $this->con = $con;
   }
 
-
   public function execute( $sql, $params = array() ){
     $stmt = $this->con->prepare( $sql );
     $stmt->execute( $params );

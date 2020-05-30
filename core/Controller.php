@@ -10,12 +10,14 @@ abstract class Controller{
   protected $session;
   protected $db_manager;
 
+  protected $auth_actions = array();
+
   public function __construct( $application ){
     $this->controller_name = strtolower( substr( get_class( $this ), 0, -10 ) );
 
     $this->application = $application;
     $this->request = $application->getRequest();
-    $this->request = $application->getResponse();
+    $this->response = $application->getResponse();
     $this->session = $application->getSession();
     $this->db_manager = $application->getDbManager();
   }
@@ -103,7 +105,7 @@ abstract class Controller{
     }
 
     $token = sha1( $form_name . session_id() . microtime() );
-    $token[] = $token;
+    $tokens[] = $token;
 
     $this->session->set( $key, $tokens );
 

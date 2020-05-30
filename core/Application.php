@@ -67,18 +67,18 @@ abstract class Application{
   }
 
 
-  public function getDbManger(){
+  public function getDbManager(){
     return $this->db_manager;
   }
 
 
   public function getControllerDir(){
-    return $this->getRootDir() . '/contorollers';
+    return $this->getRootDir() . '/controllers';
   }
 
 
   public function getViewDir(){
-    return $this->getRootDir . '/views';
+    return $this->getRootDir() . '/views';
   }
 
 
@@ -120,7 +120,6 @@ abstract class Application{
     $controller_class = ucfirst( $controller_name ) . 'Controller';
 
     $controller = $this->findController( $controller_class );
-
     if( $controller === false ){
       throw new HttpNotFoundException( $controller_class . ' controller is not found.' );
     }
@@ -135,8 +134,8 @@ abstract class Application{
   protected function findController( $controller_class ){
     if( !class_exists( $controller_class ) ){
       $controller_file = $this->getControllerDir() . '/' . $controller_class . '.php';
-
-      if( !is_readable( $controller_file ) ){
+     
+      if( !file_exists( $controller_file ) ){
         return false;
       }else{
         require_once $controller_file;
